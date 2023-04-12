@@ -7,10 +7,6 @@ using System.Runtime.ExceptionServices;
 
 using (ApplicationContext db = new ApplicationContext())
 {
-
-    
-    
-
     OrderType ort1 = new OrderType
     {
         Id = 1,
@@ -27,27 +23,24 @@ using (ApplicationContext db = new ApplicationContext())
 
     OrderVeriety ov1 = new OrderVeriety
     {
-        Id = 1,
+
         Veriety = "unilateral"
     };
     OrderVeriety ov2 = new OrderVeriety
-    {
-        Id = 2,
+    { 
         Veriety = "multilateral"
     };
 
     db.OrderVerietys.AddRange(ov1, ov2);
     db.SaveChanges();
 
-    Currency c1 = new Currency { Id = 1, CurrenxyFull = "RUBLES", CurrenxyShort = "RUB" }; 
-    Currency c2 = new Currency { Id = 2, CurrenxyFull = "AMERICAN DOLLAR", CurrenxyShort = "USD" };
-    Currency c3 = new Currency { Id = 3, CurrenxyFull = "EUR", CurrenxyShort = "EUR" }; 
+    Currency c1 = new Currency {  CurrenxyFull = "RUBLES", CurrenxyShort = "RUB" }; 
+    Currency c2 = new Currency {  CurrenxyFull = "AMERICAN DOLLAR", CurrenxyShort = "USD" };
+    Currency c3 = new Currency {  CurrenxyFull = "EUR", CurrenxyShort = "EUR" }; 
     db.Currencys.AddRange(c1, c2);
 
     Order or1 = new Order
     {
-        Id = 1,
-
         OrderType = ort1,
         OrderVeriety = ov2,
         Currency = c1,
@@ -60,8 +53,6 @@ using (ApplicationContext db = new ApplicationContext())
     };
     Order or2 = new Order
     {
-        Id = 2,
-
         OrderType = ort1,
         OrderVeriety = ov1,
         Currency = c2,
@@ -74,7 +65,6 @@ using (ApplicationContext db = new ApplicationContext())
     };
     Order or3 = new Order
     {
-        Id = 3,
 
         OrderType = ort2,
         OrderVeriety = ov2,
@@ -264,10 +254,12 @@ using (ApplicationContext db = new ApplicationContext())
                             Console.WriteLine("Данный Id существует");
                             break;
                         }
-                        curfull_ = Console.ReadLine();
-                        curshort_ = Console.ReadLine();
                         Console.WriteLine("2.CurrenxyFull");
+                        curfull_ = Console.ReadLine();
                         Console.WriteLine("3.CurrenxyShort");
+                        curshort_ = Console.ReadLine();
+                        
+                    
 
 
                         Currency cur = new Currency
@@ -286,7 +278,7 @@ using (ApplicationContext db = new ApplicationContext())
                         break;
 
                     default:
-                        Console.WriteLine("Invalid choice!!!");
+                        Console.WriteLine("Неправильный выбор");
                         break;
                 }
                 break;
@@ -564,6 +556,7 @@ using (ApplicationContext db = new ApplicationContext())
                     Console.WriteLine("По такому ID ничего не найдено");
                     break;
                 }
+                /* Тут SQL запрос нужен*/
                 Console.WriteLine($"{orde.Type} - {db.OrderVerietys.Find(orde.OrderVerietyID)} - {orde.Tiker}- {orde.Count} - {db.OrderTypes.Find(orde.OrderTypeId)} - {orde.Number} - {orde.Data}- {orde.Duration}");
                 break;
             case 7:
@@ -603,14 +596,13 @@ public class ApplicationContext : DbContext
 
 
 public class Order
-{   
+{
     public int Id { get; set; }
     public int OrderTypeId { get; set; }
     public int OrderVerietyID { get; set; }
     public int CurrencyId { get; set; }
     public OrderType OrderType { get; set; }
     public OrderVeriety OrderVeriety { get; set; }
-
     public Currency Currency { get; set; }  
     public string? Tiker { get; set; }
     public int Count { get; set; }
